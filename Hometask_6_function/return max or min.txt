@@ -1,0 +1,32 @@
+#include <iostream>
+
+int function(int a, int b, bool isEven)
+{
+    int max;
+    int min;
+    if (isEven) {
+        if (a > b)  max = a;
+        else if (b>= a)  max = b;
+        return max;
+    }
+    else  {
+        if (a < b) min = a;
+        else if (b <=a)  min = b;
+        return min;
+    }
+}
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+//написать функцию, которая примет два числа и bool значение.
+// Если bool значение - true, функция должна вернуть наибольшее из двух чисел,
+  //    в противном случае наименьшее
+
+    int a;
+    int b;
+    bool isEven;
+    std::cout << "Введите три значения\n";
+    std::cin >> a >> b >> isEven;
+    std::cout << function(a, b, isEven);
+   

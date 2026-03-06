@@ -1,0 +1,35 @@
+
+#include <iostream>
+
+//написать рекурсивную функцию для вывода последовательности фибоначчи.
+//Функция должна принимать два числа(первые числа последовательности) 
+// и количество элементов, которые нужно вывести.
+
+
+int fibonachi(int sequence1, int sequence2, int amount)
+{
+    if (amount == 1) {
+        return sequence1;
+    }
+    if (amount == 2) {
+        return sequence2;
+    }
+    return (fibonachi(sequence1, sequence2, amount - 1) + fibonachi(sequence1, sequence2, amount - 2));
+}
+   
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    int a;
+    int b;
+    int c;
+    std::cout << "Введите последовательность:\n";
+    std::cin >> a >> b;
+    std::cout << "Введите количество элементов:\n";
+    std::cin >> c;
+    
+    for (int i = 1; i <= c; ++i)
+    {
+        std::cout << fibonachi(a, b, i) << "\t";
+    }
+}

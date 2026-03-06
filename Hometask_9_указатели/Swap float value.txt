@@ -1,0 +1,46 @@
+#include <iostream>
+
+
+//Объявить два указателя вещественного типа, и инициализировать их значениями с консоли.
+//Вывести адреса и значения, на которые указывают оба указателя.
+//Поменять значения местами, но указатели должны указывать в те же области памяти.
+//Вывести адреса и значения ещё раз
+
+int main()
+{
+    //объяление указателей и выделение памяти
+    float* ptr_first= new float;
+    float* ptr_second= new float;
+
+    //инициализация с консоли
+    std::cout << "Input for first pointer :\n ";
+    std::cin >> *ptr_first;
+
+    std::cout << "Input for second pointer :\n ";
+    std::cin >> *ptr_second;
+
+    //Вывод адреса и значения, на которые указывают оба указателя.
+
+    std::cout << "Output adress and value for first pointer :\n ";
+    std::cout << ptr_first; std::cout << " "; std::cout << *ptr_first;
+    std::cout << "\n ";
+    std::cout << "Output adress and value for second pointer :\n ";
+    std::cout << ptr_second; std::cout << " "; std::cout << *ptr_second;
+    std::cout << "\n ";
+    //Поменять значения местами
+
+    float temp= *ptr_first;
+
+    *ptr_first= *ptr_second;
+    *ptr_second = temp;
+
+
+    //Вывод адреса и значения, на которые указывают оба указателя.
+
+    std::cout << "Output adress and value for first pointer after change :\n ";
+    std::cout << ptr_first; std::cout << " "; std::cout << *ptr_first;
+    std::cout << "\n ";
+    std::cout << "Output adress and value for second pointer after change :\n ";
+    std::cout << ptr_second; std::cout << " "; std::cout << *ptr_second;
+
+}

@@ -1,0 +1,44 @@
+
+#include <iostream>
+
+
+
+int* paste_mass(int* arr1, int* arr2, int N1, int N2)
+{
+	int N = N1 + N2;
+	int* newArr = new int[N];
+
+		for (int i = 0; i< N1;  i++)
+		{
+			*(newArr + i) = *(arr1 + i);
+		}
+		for (int i = 0; i < N2; i++)
+		{
+
+			*(newArr+N1+i) = *(arr2 + i);
+		
+		}
+	return newArr;
+}
+
+
+int main()
+{
+	//const int SIZE1 = 10;
+	//const int SIZE2 = 10;
+
+	int arr1[] = { 1, 2, 3, 4, 5 };
+	int arr2[] = { 6, 7, 8, 9, 10 };
+	int SIZE1 = sizeof(arr1) / sizeof(arr1[0]);
+	int SIZE2 = sizeof(arr2) / sizeof(arr2[0]);
+
+	
+	const int N = SIZE1 + SIZE2;
+	int* mergedArr= paste_mass(arr1, arr2, SIZE1, SIZE2);
+	for (int i = 0; i < N; i++)
+	{
+		std::cout << mergedArr[i]; std::cout << " ";
+	}
+	return 0;
+}
+

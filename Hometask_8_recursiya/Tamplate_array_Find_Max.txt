@@ -1,0 +1,36 @@
+
+#include <iostream>
+
+//написать шаблонную функцию поиска максимума, 
+// функция должна принимать массив любого типа и его размер, 
+// а возвращать максимальное значение
+
+template <class T> T findMax(T arr[], int SIZE)
+{
+    T max=  arr[0];
+    for (int i = 0; i < SIZE; i++)
+   {
+        if (max < arr[i]) {
+            max = arr[i];
+        }
+   }
+
+  return max;
+}
+
+
+   
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    srand(time(NULL));
+    int const SIZE = 10;
+    int arr[SIZE];
+    std::cout << "Массив: " << std::endl;
+    for (int i = 0; i < SIZE; ++i) {
+        arr[i] = rand()%101;
+      std::cout << arr[i] << "\t";
+    }
+    std::cout << std::endl<<"Наибольшее число в массиве: \n" << findMax(arr, SIZE);
+
+}

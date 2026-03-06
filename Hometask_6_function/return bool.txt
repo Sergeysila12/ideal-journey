@@ -1,0 +1,26 @@
+#include <iostream>
+
+bool function (int a)
+{
+    if (a % 2 ==0) {
+        bool isEven = true;
+        return isEven;
+ }
+    else  {
+        bool isEven = false;
+        return isEven;
+    }
+   
+}
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+//написать функцию, которая проверит число на чётность.
+  //Функция должна принять число, а вернуть bool значение
+    int a;
+    std::cout << "Введите число\n";
+    std::cin >> a;
+    std::cout << function(a);
+   
+}

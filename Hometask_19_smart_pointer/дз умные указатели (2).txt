@@ -1,0 +1,178 @@
+Владение ресурсом с shared_ptr
+Создайте класс Device (например, имитация графического устройства). 
+Создайте класс Controller, объекты которого будут хранить указатель на Device и вызывать его метод show(), передавая в него своё сообщение
+Несколько объектов Controller должны совместно использовать один Device через std::shared_ptr.
+
+
+Избежание циклических ссылок с weak_ptr
+Создайте два класса: Parent и Child. Parent содержит std::shared_ptr<Child>, а Child хранит std::weak_ptr<Parent>. 
+Убедитесь, что при удалении Parent объект Child корректно освобождается.
+
+Базовый try-catch
+Напишите функцию divide(int a, int b), которая генерирует исключение std::invalid_argument, если b = 0. 
+Перехватите исключение в main() и выведите сообщение.
+
+
+-------------------------------------------------------------------------------------
+
+#include <iostream>
+#include <memory>
+#include <stdexcept>
+
+template <typename T>
+class Smart_ptr
+{
+protected:
+    T* ptr;
+public:
+	Smart_ptr(T value)
+	{
+		ptr = new T(value);
+	}
+	Smart_ptr(T* memory)
+	{
+		ptr = memory;
+	}
+	~Smart_ptr()
+	{
+		delete ptr;
+	}
+	T& operator*()
+	{
+		return *ptr;
+	}
+};
+
+void foo()
+{
+	Smart_ptr<int> pt(0);
+}
+
+class Human
+{
+private:
+	std::weak_ptr<Human> best_friend;
+public:
+	Human(int age, const std::string& name)
+	{
+		
+	}
+	void setBestFriend(const std::shared_ptr<Human>& other)
+	{
+		best_friend = other;
+	}
+};
+
+void function(int index)
+{
+	if (index < 0 || index > 10)
+	{
+		throw std::range_error("Значине не входит в диапазон от 0 до 10");
+	}
+}
+
+class MyExcept : public std::exception
+{
+public:
+	MyExcept(char* arr) : exception(arr)
+	{
+		
+	}
+};
+
+int main()
+{
+	//попробовать выполнить код
+	//по принципу всё или ничего
+	setlocale(LC_ALL, "ru");
+	try
+	{
+		function(5);
+		function(3);
+		function(25);
+	}
+	catch (const std::range_error& e)
+	{
+		std::cout << e.what();
+	}
+	catch (const std::runtime_error& e)
+	{
+		std::cout << "ошибка выполнения";
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << e.what();
+	}
+	catch (...)
+	{
+		std::cout << "функция вызвана не корректно";
+	}
+	
+	//умные указатели позволяют избежть ошибок при управлении памятью
+	//утчеки (память выделена, а указатель удалён)
+	//двойное удаление 
+	//1) unique_ptr - уникальное владение памятью
+	//заблокировано копирование, память выделяется черз специальную функцию
+	std::unique_ptr<Human> hpt (std::make_unique<Human>(10, "Вася"));
+	std::unique_ptr<Human> hpt2 (std::move(hpt));
+	//2) shared_ptr - совместное владение памятью
+	//память освобождается только при удаление последнего умного указателя
+	std::shared_ptr<Human> hpts(std::make_shared<Human>(15, "Петя"));
+	{
+		std::shared_ptr<Human> hpts2(hpts);
+		std::cout << hpts2.use_count();
+	}
+	//количество владельцев
+	std::cout << hpts.use_count();
+	//наличие других владельцев
+	std::cout << hpts.owner_before(hpts);
+	Human h1(25, "Иван");
+	Human h2(25, "Мария");
+	h1.setBestFriend(std::make_shared<Human>(h2));
+	h2.setBestFriend(std::make_shared<Human>(h1));
+	//3) необходимо несколько указателей, но некоторые из нех без права
+	//владения
+	//слабый указатель не управляет жизненным циклом того, на что указывает
+	//слабый указатель не может выделять и осовбождать память
+	std::weak_ptr<Human> wpt (hpts);
+	{
+		if (auto sp = wpt.lock())
+		{
+			//если удалось создать общий указатель 
+			//(память ещё не освобождена)
+		}
+		else
+		{
+			//если не удалось создать указатель
+			//память освобождена
+		}
+	}
+
+	
+	//Human* h = new Human(15, "Петя");
+	//Human* h2 = h;
+
+	//std::auto_ptr<int> p;
+	/*std::unique_ptr<int[]> up = std::make_unique<int[]>(10);
+	up[6] = 15;
+	std::cout << up[6];*/
+	//std::unique_ptr <int> up2 = std::make_unique<int>();
+	//std::unique_ptr <int> up3(up2);
+
+	//int* p;
+	//std::unique_ptr<int> up4(p);
+
+
+	/*for (int i = 0; i < 100; i++)
+	{
+		foo();
+	}
+    Smart_ptr<int> pt1(10);
+	*pt1 = 15;
+	std::cout << *pt1;
+	Smart_ptr<int> pt4(new int);
+
+	Smart_ptr<char> pt2('f');
+
+	Smart_ptr<std::string> pt3 = new std::string;*/
+}

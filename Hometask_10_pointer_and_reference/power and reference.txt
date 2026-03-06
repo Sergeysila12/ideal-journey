@@ -1,0 +1,32 @@
+#include <iostream>
+
+
+//Написать функцию, которая примет два числа и ссылку для записи результата.
+//функция должна возвести первое число в степень второго и записать 
+// результат по ссылке.
+//функция не должна ничего возвращать!
+
+void power(int base_of_num, int power_of_num, int& reference)
+{
+	int result = 1;
+	for (int i = 0; i < power_of_num; i++)
+	{
+		result *= base_of_num;
+	}
+	reference = result;
+}
+
+
+
+
+int main()
+{
+	
+	int a = 9;
+	int b = 2;
+	int c;
+	int& ref = c;
+	power(a, b, ref);
+	std::cout << c;
+
+}

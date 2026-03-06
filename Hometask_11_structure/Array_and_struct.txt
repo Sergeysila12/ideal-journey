@@ -1,0 +1,91 @@
+//Объявить структуру "товар" с полями : цена, название(string), 
+// категория(можно использовать enum)
+//Создать массив экземпляров структуры(массив товаров)
+//Написать функцию, которая примет массив товаров и категорию,
+// функция должна вернуть все товары данной категории
+
+#include <iostream>
+#include <string>
+#include <array>
+
+#define MAXprodSimbol 20
+#define MAXgoods 8
+
+
+static int a;
+
+enum Category
+{
+    Frozen=1,
+    Bakery,
+    Meat,
+    Dairy_product,
+    Beverage
+};
+
+struct Goods
+{
+    float price;
+    char product_name[MAXprodSimbol];
+    Category general;
+} ;
+
+//, Goods* array[]
+
+Goods PullGoods(Goods ItemsFor[], Category ID, Goods ItemsFor1[])
+{
+    Goods* ptr_category = &ItemsFor[0];
+    Goods* array[]{ ptr_category };
+   
+    int j = 0;
+    for (int i = 0 ; i < MAXgoods; i++)
+    {
+        if (ItemsFor[i].general == ID)
+        {
+            ItemsFor1[j] = ItemsFor[i];
+            j++;
+
+        }
+   }
+   a = j;
+   return ItemsFor1[j];
+}
+
+
+void PrintStruct(Goods Mirror[MAXgoods],int a)
+{
+    for (int i = 0; i < a; i++)
+   {
+       std::cout << "Price:\t" << Mirror[i].price << "\n";
+
+      std::cout << "Product_name:\t" << Mirror[i].product_name << "\n";
+
+        std::cout << "Category:\t" << Mirror[i].general << "\n";
+        
+    }
+
+
+}
+
+int main()
+{
+    Goods ItemsFor[MAXgoods];
+    setlocale(LC_ALL, "ru");
+    ItemsFor[0]={ 20.50,"Vodka",Category::Beverage };
+    ItemsFor[1]={ 35.70,"Milk",Category::Dairy_product };
+    ItemsFor[2]={ 75.70,"Beef",Category::Meat };
+    ItemsFor[3]={ 5.10,"Cheese",Category::Dairy_product };
+    ItemsFor[4]={ 6.20,"Bread",Category::Bakery };
+    ItemsFor[5]={ 5.10,"Fish",Category::Frozen };
+    ItemsFor[6]={ 12.26,"Cheese",Category::Dairy_product };
+    ItemsFor[7]={ 14.85,"Dumplings",Category::Frozen };
+
+
+    Goods Mirror[MAXgoods]{};
+
+    PullGoods (ItemsFor, Category::Frozen, Mirror);
+
+    PrintStruct(Mirror, a);
+
+}
+

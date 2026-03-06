@@ -1,0 +1,88 @@
+
+Задача 1: Подсчет частоты слов в тексте
+Напишите программу, которая читает текст и выводит, сколько раз каждое слово встречалось в нем. Для решения этой задачи отлично подойдёт словарь
+
+Задача 2: Телефонная книга
+Реализуйте простую телефонную книгу. Команды:
+
+add <имя> <телефон> — добавить/обновить номер.
+find <имя> — найти номер. Если имени нет, вывести "Not found".
+del <имя> — удалить запись.
+
+команды необходимо получать через консоль
+
+
+
+------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <vector>
+#include <stack>
+#include <queue>
+#include <deque>
+#include <set>
+#include <map>
+#include <unordered_map>
+
+int main()
+{
+    std::vector<int> v1{ 2, 5, 3, 4 };
+    for (auto it = v1.begin(); it != v1.end(); it++)
+    {
+        std::cout << *it;
+    }
+    std::cout << std::endl;
+    auto it = v1.begin();
+    /*it += 2;
+    v1.insert(it, {10, 7, 12});*/
+
+    it += 2;
+    v1.erase(v1.begin(), it);
+
+    for (auto it : v1)
+    {
+        std::cout << it;
+    }
+    std::cout << *(v1.end() -= 1);
+    //стек
+    //LIFO
+    //последний вошёл, первый вышел
+
+    //очередь
+    //FIFO
+    //первый вошёл, первый вышел
+
+    std::stack<int> s1;
+    s1.push(5);
+    s1.push(3);
+    s1.push(4);
+    int top = s1.top();
+    s1.pop();
+    
+    std::queue<int> q1;
+    q1.push(5);
+    q1.push(3);
+    q1.push(4);
+    int first = q1.front();
+    int back = q1.back();
+    q1.pop();
+
+    std::set<int> st1;
+    std::set<int> st2;
+    st1.insert(10);
+    st1.insert(15);
+    st1.insert(8);
+    //st1.erase(8);
+    st1.find(10);
+    for (auto i : st1)
+    {
+        std::cout << i;
+    }
+    
+    std::map<int, std::string> m1;
+    std::pair<int, std::string> p(5, "значение");
+    m1.insert(p);
+    m1.insert(*(new std::pair<int, std::string>(4, "")));
+    m1[6] = "новое значение";
+    std::cout << m1[6];
+}
+

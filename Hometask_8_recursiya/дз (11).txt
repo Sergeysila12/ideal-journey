@@ -1,0 +1,141 @@
+написать рекурсивную функцию для вывода последовательности фибоначчи.
+Функция должна принимать два числа (первые числа последовательности) и количество элементов, которые нужно вывести.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <math.h>
+//int, double, 2, 3
+
+double multy(double value1, double value2)
+{
+    return value1 * value2;
+}
+int multy(int value1, int value2)
+{
+    return value1 * value2;
+}
+
+double square(double side)
+{
+    return side * side;
+}
+inline double square(double width, double height)
+{
+    return width * height;
+}
+double square(double a, double b, double c)
+{
+    double halfPerim = (a + b + c) / 2;
+    return sqrt(halfPerim * (halfPerim - a) * (halfPerim - b) * (halfPerim - c));
+}
+
+//шаблон позволяет напиать функцию с неопределённым типом
+//не все типы должны быть шаблонными
+//определение шаблонного типа (Type) происходит
+//в момент вызова функции
+//шаблонный тип определяется по тому типу, который передан вместо него
+//каждый вызов шаблонной функции с новыми типами, приводит к созданию нового экземпляра
+template <typename Type1, typename Type2> 
+double function(Type1 val1, Type2 val2)
+{
+    return val1 * val2;
+}
+
+
+int f(int a, int b)
+{
+    return 1;
+}
+template <typename T>
+T f(T a, T b) 
+{
+    T var = a * b;
+}
+
+//дополнительные экзепляры
+//-при перегрузке нужно писать каждый вариант
+//+шаблон пишется один раз и работает с любыми типами
+
+//вызов
+//+при перегрузке вызов происходит сразу же
+//-шаблон сначала создаёт спецификацию, а потом её вызывает
+
+//реализация
+//+при перегрузке реализация может отличаться
+//-шаблон всегда работает одинаково
+
+//память
+//-все экзепляры перегрузки хрняться в памяти приложения
+//+спецификации шаблона создаются при необходимости
+
+
+void recursive(int value)
+{
+    std::cout << value;
+    if (value <= 0) return;
+    recursive(value - 1);
+}
+
+int fact(int value)
+{
+   /* if (value == 1) return 1;
+    else            return value * fact(value - 1);*/
+    return (value == 1 ? 1 : value * fact(value - 1));
+    //условие ? дейстиве : действие
+}
+
+int pow(int number, int degree)
+{
+    if (degree == 1) return number;
+    return number * pow(number, degree - 1);
+}
+
+
+int hoar(int arr[], int left, int right)
+{
+    //int piv = (arr[left] + arr[right] + arr[(right - left) / 2]) / 2;
+    int piv = arr[(right - left) / 2];
+    int l = left - 1;
+    int r = right + 1;
+    while (true)
+    {
+        do
+        {
+            l++;
+        } while (arr[l] < piv);
+        do
+        {
+            r--;
+        } while (arr[r] > piv);
+
+        if (l >= r)
+        {
+            return r;
+        }
+        int temp = arr[l];
+        arr[l] = arr[r];
+        arr[r] = temp;
+
+    }
+}
+
+void quickSort(int arr[], int left, int right)
+{
+    if (left < right)
+    {
+        int pivot = hoar(arr, left, right);
+        quickSort(arr, left, pivot);
+        quickSort(arr, pivot + 1, right);
+    }
+}
+
+int main()
+{
+    //std::cout << square(5, 3);
+    //std::cout << function(2.0, 3);
+    int testArray[5] = {5, 1, 2, 4, 3};
+    quickSort(testArray, 0, 4);
+
+    return 0;
+}
+

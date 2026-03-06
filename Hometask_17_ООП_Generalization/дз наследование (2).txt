@@ -1,0 +1,3 @@
+Задача 3: Сотрудники компании
+Базовый класс Employee с полями name и salary.
+Производный класс Manager добавляет поле department и метод printInfo().

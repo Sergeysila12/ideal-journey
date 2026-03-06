@@ -1,0 +1,34 @@
+// Объявить структуру дата (день, месяц, год)
+// Создать три экземпляра этоц структуры
+// Написать функцию, которая будет принимать 
+// экземпляр структуры и выводить его на консоль
+
+#include <iostream>
+
+
+struct Date
+{
+    int day;
+    int month;
+    int year;
+} dateFirst, dateSecond, dateThird ;
+
+
+void PrintStruct(const Date& someDay)
+{
+    std::cout << "Day:\t" << someDay.day << "\n";
+    std::cout << "Month:\t" << someDay.month << "\n";
+    std::cout << "Year:\t" << someDay.year << "\n";
+
+}
+
+int main()
+{
+    dateFirst={16,4,2010};
+    dateSecond ={8,10,2012};
+    dateThird ={14,4,2000};
+
+
+    PrintStruct(dateThird);
+}
+

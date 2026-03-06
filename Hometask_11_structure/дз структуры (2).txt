@@ -1,0 +1,72 @@
+Объявить структуру дата (день, месяц, год)
+Создать три экземпляра это структуры
+Написать функцию, которая будет принимать экземпляр структуры и выводить его на консоль
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include <string>
+
+//перечисление
+enum Departments
+{
+    development,
+    qa,
+    design
+};
+//структуры
+struct User
+{
+    int age;
+    std::string name;
+    Departments depart;
+};
+
+void showUserInfo(const User& user)
+{
+    std::cout << "Имя:\t" << user.name << std::endl;
+    std::cout << "Возраст:" << user.age << std::endl;
+    std::cout << "Отдел:\t" << user.depart << std::endl;
+}
+
+User& findLowAge(User* users[], int size)
+{
+    User* min = users[0];
+    for (int i = 1; i < size; i++)
+    {
+        if (users[i]->age < min->age)
+        {
+            min = users[i];
+        }
+    }
+    return *min;
+}
+
+int main()
+{
+    //объявление и последовательная инициализация
+    User u1;
+    u1.age = 25;
+    u1.name = "Вася";
+    u1.depart = Departments::development;
+    //инициализация при объявлении
+    User u2{ 30, "Петя", Departments::qa };
+    u2.age = 32;
+    //указатель на экземпляр структуры
+    User* ptr_u = &u1;
+    ptr_u->age = 20;
+    (*ptr_u).age = 20;
+
+    User arr[]{ u1, u2 };
+    //std::cout << u1.age << " " << arr[0].age << std::endl;
+    //u1.age = 45;
+    //std::cout << u1.age << " " << arr[0].age << std::endl;
+    User* arr2[]{ &u1, &u2, ptr_u };
+    std::cout << u1.age << " " << arr2[0]->age << std::endl;
+    u1.age = 45;
+    std::cout << u1.age << " " << arr2[0]->age << std::endl;
+    setlocale(LC_ALL, "ru");
+    /*showUserInfo(u1);
+    showUserInfo(arr[0]);
+    showUserInfo(*(arr2[0]));*/
+    showUserInfo(findLowAge(arr2, 3));
+}

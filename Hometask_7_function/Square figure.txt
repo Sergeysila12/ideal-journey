@@ -1,0 +1,29 @@
+
+#include <iostream>
+
+
+double Square(double a) {
+ 
+    return a * a;
+}
+double Square(double a, double b) {
+
+    return a * b;
+}
+
+double Square(double a, double b, double c) {
+    double p = (a + b + c) / 2;
+    double S;
+    S = sqrt(p * (p - a) * (p - b) * (p - c));
+    return S;
+}
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+
+   double S= Square(5,3);
+
+    std::cout << "Площадь фигуры: " << S;
+}
+

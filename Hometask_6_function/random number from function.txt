@@ -1,0 +1,30 @@
+#include <iostream>
+
+int function (int a, int b)
+{
+    int c;
+    if (b > a) {
+        c = rand() % (b - a) + a;
+ }
+    else  {
+ c = rand() % (a - b) + b;
+    }
+    return c;
+}
+
+
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+//написать функцию, которая примет два целых числа
+// (границы диапазона), а вернёт случайное число из этого диапазона
+    srand(time(NULL));
+    int a;
+    int b;
+    std::cout << "Введите два целых числа\n";
+    std::cin >> a;
+    std::cin >> b;
+    std::cout << function(a, b);
+   
+}

@@ -1,0 +1,41 @@
+
+#include <iostream>
+
+
+//объявить два указателя на целочисленные ячейки памяти,
+// поменять указатели местами (первый должен указывать на область памяти, 
+// выделенную с помощью второго, а второй на память первого)
+
+int main()
+{
+    //объяление указателей
+    int* prt_first;
+    int* prt_second;
+
+    //просим ОС выделить память для целочисленных значений
+    int* memory_for_first= new int;
+    int* memory_for_second = new int;
+
+    //присваиваем указателям адреса выделенных ячеек
+    prt_first = memory_for_first;
+    prt_second = memory_for_second;
+
+    std::cout << "at the start prt_first addr: " << prt_first << std::endl;
+    std::cout << "at the start prt_second addr: " << prt_second << std::endl;
+
+    //сохраним адрес, на который указывает prt_first
+
+    int* temp= prt_first;
+
+    //присваиваем адрес выделенный под memory_for_second
+    prt_first= prt_second;
+    //присваиваем адрес выделенный под memory_for_first
+    prt_second = temp;
+
+
+    std::cout << "prt_first addr: " << prt_first << std::endl;
+    std::cout << "prt_second addr: " << prt_second << std::endl;
+
+    
+
+}

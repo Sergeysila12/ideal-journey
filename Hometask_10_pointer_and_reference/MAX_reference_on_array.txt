@@ -1,0 +1,34 @@
+#include <iostream>
+
+
+//написать функцию, которая вернёт ссылку на максимальный элемент в массиве.
+//функция должна принять указатель на массив и его размер.
+//Важно, что функция должна вернуть именно ссылку на элемент.
+
+int& Fpointer(int* arr, int N)
+{
+	int max = *arr;
+	int index_max;
+	for (int i = 0; i < N; i++)
+	{
+		if (max<arr[i])
+		{		
+			max = arr[i];
+			index_max=i;
+		}
+	}
+	int& element = arr[index_max];
+	return element;
+}
+
+
+
+int main()
+{
+
+	int arr[] = { 1, 2, 3, 4, 5 };
+	int N = sizeof(arr) / sizeof(arr[0]);
+
+
+	std::cout <<  Fpointer(arr, N);
+}

@@ -1,0 +1,163 @@
+Задача 1: Геометрические фигуры
+Создайте базовый класс Rectangle с полями width и height и методом area().
+Производный класс ColoredRectangle добавляет поле color (строка) и метод display(), который выводит площадь и цвет.
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+#include <iostream>
+#include <map>
+#include <string>
+#include <unordered_set>
+#include <unordered_map>
+
+//наследование
+
+class Parent
+{
+protected:
+    int power;
+public:
+    void setPower(int value)
+    {
+        if (value >= 10) power = value;
+        else throw "";
+    }
+    int getPower() { return power; }
+    Parent(int power)
+    {
+        setPower(power);
+    }
+    void move()
+    {
+        std::cout << "Я транспорт я еду";
+    }
+};
+
+class Child1: public Parent
+{
+private:
+    int max_speed;
+public:
+    void setSpeed(int value)
+    {
+        if (value >= 0) max_speed = value;
+        else throw "";
+    }
+    int getSpeed() { return max_speed; }
+
+    Child1(int power, int max_speed) : Parent(power)
+    {
+        setSpeed(max_speed);
+    }
+
+};
+
+//наследование (обобщение) - механизм при котором один класс (потомок) расширяет и дополняет другой класс. 
+//Один класс (родитель) обобщает другие классы (содержит общие для них компоненты)
+//Конструктор потомка обязан вызывать конструктор совего родителя
+//Деструкторы при наследовании вызываются от потомка к родителю
+//private поля доступны только внутри своего класса
+//protected поля доступны внутри своего класса и потомкам
+//public - доступны отовсюду
+
+
+int main()
+{
+    Child1 c(100, 120);
+    std::cout << c.getPower() << " " << c.getSpeed();
+    /*std::map <std::string, int> m;
+    std::string text;
+
+    std::getline(std::cin, text);
+    std::cout << text;
+
+    std::string word;
+    for (auto c : text)
+    {
+        if (c != ' ')
+        {
+            word += c;
+        }
+        else if ((c >= 33 && c <= 47) || (c >= 58 && c <= 64))
+        {
+            continue;
+        }
+        else
+        {
+            m[word]++;
+            word.clear();
+        }
+    }
+    if (!word.empty())
+    {
+        m[word]++;
+        word.clear();
+    }*/
+
+    /*std::map<std::string, std::string> phones;
+    
+    while (true)
+    {
+        std::string command;
+        std::cout << "Введите команду: " << std::endl;
+        std::cin >> command;
+        if (command == "add")
+        {
+            std::cout << "Введите имя: " << std::endl;
+            std::string name;
+            std::cin >> name;
+            std::cout << "Введите номер:" << std::endl;
+            std::string phone;
+            std::cin >> phone;
+
+            if (phones.find(name) == phones.end())
+                phones[name] = phone;
+            else
+                std::cout << "Такое имя уже существует";
+        }
+        else if (command == "del")
+        {
+            std::cout << "Введите имя" << std::endl;
+            std::string name;
+            std::cin >> name;
+            phones.erase(name);
+        }
+        else if (command == "find")
+        {
+            std::cout << "Введите имя" << std::endl;
+            std::string name;
+            std::cin >> name;
+            std::map<std::string, std::string>::iterator it = phones.find(name);
+            if (it == phones.end())
+                std::cout << "Контакт не найден" << std::endl;
+            else
+                std::cout << it->second << std::endl;
+
+        }
+        else if (command == "stop")
+            break;
+    }*/
+
+    //std::unordered_set<int> us;
+    ////us.bucket_size(5);
+    ////us.bucket();
+    ////std::cout << us.max_bucket_count();
+    ////us.rehash(16);
+    //std::cout << us.bucket_count() << " " << us.size() << std::endl;
+    //us.insert(0);
+    //us.insert(8);
+    //us.insert(5);
+    //us.insert(11);
+    //us.insert(2);
+    //std::cout << us.bucket_count() << " " << us.size() << std::endl;
+    //for (auto v : us)
+    //{
+    //    std::cout << v << " ";
+    //}
+    //
+    //std::unordered_map<int, std::string> um;
+    //um[6] = "слово";
+    //std::cout << um[6];
+    return 0;
+}

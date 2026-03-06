@@ -1,0 +1,115 @@
+Задача 1: Геометрические фигуры
+Условие:
+Создайте иерархию классов для геометрических фигур (круг, прямоугольник, треугольник). 
+Реализуйте метод area(), который возвращает площадь фигуры. 
+Используя указатели на базовый класс (фигура) объявите массив фигур и вызовете метод area у всех
+
+--------------------------------------------------------------------------------------------------------
+
+#include <iostream>
+
+class Boss
+{
+public:
+    //виртуальные методы - переопределяемые методы
+    virtual void doQuestions()
+    {
+        std::cout << "Я на всех кричу";
+    }
+};
+
+class ChildBoss : public Boss
+{
+public:
+    virtual void doQuestions() override
+    {
+        std::cout << "Я нахожу компромисс";
+    }
+    virtual void method()
+    {
+    }
+};
+
+
+void chaos(Boss& b)
+{
+    b.doQuestions();
+}
+
+class TestAbstract
+{
+protected:
+    int field;
+public:
+    TestAbstract(int value)
+    {
+        field = value;
+    }
+    virtual int getField() { return field; }
+    //чистый виртуальный метод CVM
+    virtual void method() = 0;
+};
+
+class ConcretClass : public TestAbstract
+{
+public:
+    ConcretClass(int value) : TestAbstract(value)
+    {}
+    virtual void method() override
+    {
+        std::cout << "метод реализован";
+    }
+};
+//класс становится асбтрактным, только тогда,
+//когда у него появляется чистый виртуальный метод
+//абстрактный класс может иметь сколько угодно CVM
+//абстрактный класс может иметь поля, конструкторы и
+//обычные методы
+
+class Transport
+{
+public:
+    virtual void move() = 0;
+};
+
+class Auto : public Transport
+{
+public:
+    virtual void move() override
+    {
+        std::cout << "Я автомобиль, я еду" << std::endl;
+    }
+};
+
+class Fly : public Transport
+{
+public:
+    virtual void move() override
+    {
+        std::cout << "Я самолёт, я лечу" << std::endl;
+    }
+};
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    ConcretClass c(5);
+    TestAbstract* ptr = new ConcretClass(0);
+    TestAbstract* pt = &c;
+
+    Transport* transportArray[3];
+    transportArray[0] = new Auto;
+    transportArray[1] = new Fly;
+    Auto at;
+    transportArray[2] = &at;
+
+    for (int i = 0; i < 3; i++)
+    {
+        transportArray[i]->move();
+    }
+
+    //Boss petia;
+    //ChildBoss vasia;
+    //vasia.doQuestions();
+    //chaos(vasia);
+}
